@@ -1,5 +1,5 @@
 sudo: required
-language: generic 
+language: generic
 services:
   - docker
 
@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true mindaras/docker-travis-aws-sample npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-central-1"
+  app: "docker-travis-aws-sample"
+  env: "Dockertravisawssample-env"
+  bucket_name: "elasticbeanstalk-eu-central-1-522714423525"
+  bucket_path: "docker-travis-aws-sample"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  
