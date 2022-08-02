@@ -1,0 +1,10 @@
+sudo: required
+language: generic 
+services:
+  - docker
+
+before_install:
+  - docker build -t mindaras/docker-travis-aws-sample -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true mindaras/docker-travis-aws-sample npm run test
